@@ -248,7 +248,7 @@ class CustomShader extends Shader
 {
     public function new(?frag:String, ?vert:String) {
         if (FNFAssets.returnAsset(TEXT, AssetPaths.frag(frag)) != '')
-            this.glFragmentSource = StringTools.replace(cast(FNFAssets.returnAsset(TEXT, AssetPaths.frag(frag)), String), '#pragma header', Pragmas.fragHead);
+            this.glVertexSource = FNFAssets.returnAsset(TEXT, AssetPaths.frag(frag));
         else if (frag != null)
             Main.print('warn', 'Could not find fragment shader "' + frag + '"');
 
@@ -297,6 +297,14 @@ class CustomShader extends Shader
             gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
         }".replace("#pragma body", Templates.entireFuckingCustomFragmentBody).replace("#pragma header", Templates.entireFuckingCustomFragmentHeader).replace(" attribute ", " uniform ");
 
+
+        if (frag.trim() != "" && Assets.exists(frag))
+            glFragmentSource = Assets.getText(frag);
+        
+        if (vert.trim() != "" && Assets.exists(vert)) {
+            var vert = Assets.getText(vert);
+            glVertexSource = vert;
+        }
 
         super(glFragmentSource, glVertexSource);
 
