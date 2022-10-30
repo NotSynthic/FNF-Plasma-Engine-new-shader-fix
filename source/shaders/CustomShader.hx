@@ -1,9 +1,12 @@
 package shaders;
 
+import openfl.utils.Assets;
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
 import openfl.display.ShaderParameterType;
 import openfl.display.ShaderParameter;
+import haxe.Exception;
+import haxe.io.Path;
 
 using StringTools;
 
